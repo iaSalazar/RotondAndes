@@ -13,8 +13,20 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="Referenced libraries/jackson-all-1.7.5.jar"/>
-	<classpathentry kind="lib" path="Referenced libraries/javax.servlet.jar"/>
-	<classpathentry kind="lib" path="Referenced libraries/javax.ws.rs.jar"/>
+	<classpathentry kind="lib" path="Referenced libraries/jackson-all-1.7.5.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Referenced libraries/javax.servlet.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Referenced libraries/javax.ws.rs.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

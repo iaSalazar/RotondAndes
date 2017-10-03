@@ -1,6 +1,7 @@
 package tm;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +12,7 @@ import java.util.Properties;
 
 import dao.DaoPersonas;
 import vos.PersonaVos;
+
 
 
 public class RotondAndesTm {
@@ -94,6 +96,11 @@ public class RotondAndesTm {
 		System.out.println("Connecting to: " + url + " With user: " + user);
 		return DriverManager.getConnection(url, user, password);
 	}
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 
 	public List<PersonaVos> darPersonas() throws Exception {
 		List<PersonaVos> personas;
@@ -125,6 +132,37 @@ public class RotondAndesTm {
 			}
 		}
 		return personas;
+	}
+	
+	public void addVideo(PersonaVos persona) throws Exception {
+		DaoPersonas daoPersonas = new DaoPersonas();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPersonas.setConn(conn);
+			daoPersonas.addPersona(persona);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPersonas.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
 	}
 
 

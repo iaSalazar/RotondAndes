@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vos.PersonaVos;
+
 
 
 public class DaoPersonas {
@@ -74,5 +76,24 @@ public class DaoPersonas {
 			personas.add(new PersonaVos(id, rol, clave,telefono,nombre));
 		}
 		return personas;
+	}
+	
+	
+	public void addPersona(PersonaVos persona) throws SQLException, Exception {
+
+		String sql = "INSERT INTO PERSONA VALUES (";
+		sql += persona.getId() + ",'";
+		if(persona.getRol()==null){
+			persona.setRol("CLIENTE");
+		}
+		sql += persona.getRol() + "',";
+		sql += persona.getClave() + ",";
+		sql += persona.getTelefono() + ",'";
+		sql += persona.getNombre() + "')";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
 	}
 }

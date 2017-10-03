@@ -2,6 +2,7 @@ package tm;
 
 import java.io.File;
 
+
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +12,12 @@ import java.util.Properties;
 
 
 import dao.DaoPersonas;
+import dao.DaoRestaurante;
+import dao.DaoZona;
 import vos.PersonaVos;
+import vos.Restaurante;
+import vos.Zona;
+
 
 
 
@@ -97,7 +103,7 @@ public class RotondAndesTm {
 		return DriverManager.getConnection(url, user, password);
 	}
 	/**
-	 * 
+	 * da las personas de todo el sistema
 	 * @return
 	 * @throws Exception
 	 */
@@ -133,8 +139,12 @@ public class RotondAndesTm {
 		}
 		return personas;
 	}
-	
-	public void addVideo(PersonaVos persona) throws Exception {
+	/**
+	 * 
+	 * @param persona
+	 * @throws Exception
+	 */
+	public void addPersona(PersonaVos persona) throws Exception {
 		DaoPersonas daoPersonas = new DaoPersonas();
 		try 
 		{
@@ -163,6 +173,145 @@ public class RotondAndesTm {
 				throw exception;
 			}
 		}
+	}
+
+	/**
+	 * retorna una persona con su ID.
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 * @throws Exception
+	 */
+	public PersonaVos BuscarPersonaPorId(Long id) throws SQLException, Exception {
+		PersonaVos persona;
+		DaoPersonas daoVideos = new DaoPersonas();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoVideos.setConn(conn);
+			persona = daoVideos.buscarPersonaPorId(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoVideos.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return persona;	}
+
+	/**
+	 * retorna los admins del sistema.
+	 * @return
+	 * @throws SQLException,Exception 
+	 */
+	public List<PersonaVos> darAdmins() throws SQLException,Exception {
+		List<PersonaVos> admins;
+		DaoPersonas daoPersona = new DaoPersonas();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPersona.setConn(conn);
+			admins = daoPersona.darAdmins();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPersona.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return admins;
+	}
+
+	public void addRestaurante(Restaurante restaurante) throws SQLException,Exception {
+		DaoRestaurante daoRestaurante = new DaoRestaurante();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoRestaurante.setConn(conn);
+			daoRestaurante.addRestaurante(restaurante);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoRestaurante.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		
+	}
+	
+	public void addZona(Zona zona) throws SQLException,Exception {
+		DaoZona daoZona = new DaoZona();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoZona.setConn(conn);
+			daoZona.addZona(zona);
+			conn.commit();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoZona.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		
 	}
 
 

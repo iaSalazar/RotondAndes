@@ -4,11 +4,13 @@ import java.util.List;
 
 
 
+
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -17,6 +19,7 @@ import javax.ws.rs.core.Response;
 import tm.RotondAndesTm;
 
 import vos.PersonaVos;
+
 
 
 
@@ -63,18 +66,45 @@ public class PersonasServices {
 			}
 			return Response.status(200).entity(personas).build();
 		}
+		/**
+		 * 
+		 * @param persona
+		 * @return
+		 */
 		
 		@POST
+		@Path( "{id: \\d+}" )
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
-		public Response addPersona(PersonaVos video) {
+		public Response addPersona(PersonaVos persona) {
 			RotondAndesTm tm = new RotondAndesTm(getPath());
 			try {
-				tm.addVideo(video);
+				tm.addPersona(persona);
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
-			return Response.status(200).entity(video).build();
+			return Response.status(200).entity(persona).build();
+		}
+		/**
+		 * 
+		 * @param id
+		 * @return
+		 */
+		@GET
+		@Path( "{id: \\d+}" )
+		@Produces( { MediaType.APPLICATION_JSON } )
+		public Response getPersona( @PathParam( "id" ) Long id )
+		{
+			RotondAndesTm tm = new RotondAndesTm( getPath( ) );
+			try
+			{
+				PersonaVos v = tm.BuscarPersonaPorId( id );
+				return Response.status( 200 ).entity( v ).build( );			
+			}
+			catch( Exception e )
+			{
+				return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+			}
 		}
 		
 }

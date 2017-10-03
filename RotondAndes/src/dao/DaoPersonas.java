@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vos.PersonaVos;
+
 
 
 
@@ -83,6 +85,30 @@ public class DaoPersonas {
 
 		String sql = "INSERT INTO PERSONA VALUES (";
 		sql += persona.getId() + ",'";
+		
+		if(persona.getRol()=="Administrador" |persona.getRol()=="Cliente" ){
+			throw new Exception("Forbidden");
+		}
+		
+		sql += persona.getRol() + "',";
+		sql += persona.getClave() + ",";
+		sql += persona.getTelefono() + ",'";
+		sql += persona.getNombre() + "')";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
+	public void addCliente(PersonaVos persona) throws SQLException, Exception {
+
+		String sql = "INSERT INTO PERSONA VALUES (";
+		sql += persona.getId() + ",'";
+		
+		if(persona.getRol()!=null){
+			throw new Exception("Forbidden");
+		}
 		if(persona.getRol()==null){
 			persona.setRol("CLIENTE");
 		}
@@ -95,5 +121,48 @@ public class DaoPersonas {
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 
+	}
+
+	public PersonaVos buscarPersonaPorId(Long id) throws SQLException {
+		PersonaVos persona = null;
+
+		String sql = "SELECT * FROM PERSONA WHERE USUARIO_ID =" + id;
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		if(rs.next()) {
+			Long id2 = rs.getLong("USUARIO_ID");
+			String rol = rs.getString("ROL");
+			String clave = rs.getString("CLAVE");
+			Long telefono = rs.getLong("Telefono");
+			String nombre = rs.getString("NOMBRE");
+			persona = new PersonaVos(id2, rol, clave,telefono,nombre);
+		}
+
+		return persona;
+	}
+
+	public List<PersonaVos> darAdmins() throws SQLException {
+		ArrayList<PersonaVos> personas = new ArrayList<PersonaVos>();
+
+		String sql = "SELECT * FROM PERSONA WHERE ROL ='Administrador'";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			
+			Long id = rs.getLong("USUARIO_ID");
+			String rol = rs.getString("ROL");
+			String clave = rs.getString("CLAVE");
+			Long telefono = rs.getLong("Telefono");
+			String nombre = rs.getString("NOMBRE");
+			
+			personas.add(new PersonaVos(id, rol, clave,telefono,nombre));
+		}
+		return personas;
 	}
 }

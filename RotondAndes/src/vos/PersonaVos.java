@@ -26,7 +26,7 @@ public  class PersonaVos {
 	 * telefono del usuario
 	 */
 	@JsonProperty(value="telefono")
-	private Integer telefono;
+	private Long telefono;
 	
 	/**
 	 * nombre del usuario
@@ -44,7 +44,7 @@ public  class PersonaVos {
 	 */
 	
 	public PersonaVos(@JsonProperty(value="id")Long id, @JsonProperty(value="rol")String rol,@JsonProperty(value="clave")String clave,
-			@JsonProperty(value="telefono")Integer telefono,@JsonProperty(value="nombre")String nombre) {
+			@JsonProperty(value="telefono")Long telefono,@JsonProperty(value="nombre")String nombre) {
 		super();
 		this.id = id;
 		this.rol=rol;
@@ -77,11 +77,11 @@ public  class PersonaVos {
 		this.clave = clave;
 	}
 
-	public Integer getTelefono() {
+	public Long getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(Integer telefono) {
+	public void setTelefono(Long telefono) {
 		this.telefono = telefono;
 	}
 

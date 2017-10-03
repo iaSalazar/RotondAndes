@@ -68,7 +68,7 @@ public class DaoPersonas {
 			Long id = rs.getLong("USUARIO_ID");
 			String rol = rs.getString("ROL");
 			String clave = rs.getString("CLAVE");
-			Integer telefono = rs.getInt("Telefono");
+			Long telefono = rs.getLong("Telefono");
 			String nombre = rs.getString("NOMBRE");
 			
 			personas.add(new PersonaVos(id, rol, clave,telefono,nombre));

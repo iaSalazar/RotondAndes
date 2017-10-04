@@ -389,8 +389,8 @@ public class RotondAndesTm {
 		}
 	}
 	
-	public ArrayList<Preferencia> BuscarPreferenciaPorId(Long id,Long idp) throws SQLException, Exception {
-		ArrayList<Preferencia> preferencia;
+	public Preferencia BuscarPreferenciaPorId(Long id,Long idp) throws SQLException, Exception {
+		Preferencia preferencia;
 		DaoPreferencia daoPreferencia = new DaoPreferencia();
 		try 
 		{

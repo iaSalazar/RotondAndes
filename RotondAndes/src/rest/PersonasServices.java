@@ -140,13 +140,14 @@ public class PersonasServices {
 			RotondAndesTm tm = new RotondAndesTm( getPath( ) );
 			try
 			{
-				ArrayList<Preferencia> v = tm.BuscarPreferenciaPorId( id,id2 );
+				Preferencia v = tm.BuscarPreferenciaPorId( id,id2 );
 				return Response.status( 200 ).entity( v ).build( );			
 			}
 			catch( Exception e )
 			{
 				return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 			}
+				
 		}
 		
 }

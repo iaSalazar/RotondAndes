@@ -33,33 +33,33 @@ public class RestaurantesServices {
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
 	
-	@POST
-	@PathParam("{id: \\d+}/newMenu")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addMenu() {
-		RotondAndesTm tm = new RotondAndesTm(getPath());
-		
-		try {
-			// INVOCAR METODO QUE AGREGA MENUS
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(menu).build();
-	}
+//	@POST
+//	@PathParam("{id: \\d+}/newMenu")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response addMenu() {
+//		RotondAndesTm tm = new RotondAndesTm(getPath());
+//		
+//		try {
+//			// INVOCAR METODO QUE AGREGA MENUS
+//		} catch (Exception e) {
+//			return Response.status(500).entity(doErrorMessage(e)).build();
+//		}
+//		return Response.status(200).entity(menu).build();
+//	}
 	
-	@POST
-	@PathParam("{id: \\d+}/newIngrediente")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addIngrediente() {
-		RotondAndesTm tm = new RotondAndesTm(getPath());
-		
-		try {
-			// INVOCAR METODO QUE AGREGA MENUS
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(ingrediente).build();
-	}
+//	@POST
+//	@PathParam("{id: \\d+}/newIngrediente")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response addIngrediente() {
+//		RotondAndesTm tm = new RotondAndesTm(getPath());
+//		
+//		try {
+//			// INVOCAR METODO QUE AGREGA MENUS
+//		} catch (Exception e) {
+//			return Response.status(500).entity(doErrorMessage(e)).build();
+//		}
+//		return Response.status(200).entity(ingrediente).build();
+//	}
 }

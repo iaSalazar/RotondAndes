@@ -103,8 +103,18 @@ public class DaoPreferencia {
 		
 	}
 	
-public void deletePreferencia(Long id, Long idp){
+public void deletePreferencia(Preferencia preferencia) throws SQLException{
 		
+	String sql = "DELETE FROM PREFERENCIAS_PERSONAS";
+	sql += " WHERE ID_PERSONA = " + preferencia.id_persona();
+	sql+=" AND TIPO = '"+preferencia.getTipo()+"'";
+	
+	System.out.println("SQL stmt:" + sql);
+
+	PreparedStatement prepStmt = conn.prepareStatement(sql);
+	recursos.add(prepStmt);
+	prepStmt.executeQuery();
+	
 	}
 
 

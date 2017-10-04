@@ -67,8 +67,8 @@ public class DaoPreferencia {
 	public Preferencia buscarPreferencias(Long id, Long idp) throws SQLException {
 		
 		Preferencia preferencia = null;
-		//String sql = "SELECT * FROM PREFERENCIAS_PERSONAS s INNER JOIN PREFERENCIAS p ON s.ID_PREFERENCIA=p.ID_PREFERENCIA WHERE ID_PERSONA ="+id+"AND s.ID_PREFERENCIA =" +idp;
-		String sql = "SELECT * FROM PREFERENCIAS_PERSONAS s INNER JOIN PREFERENCIAS p ON s.ID_PREFERENCIA=p.ID_PREFERENCIA WHERE ID_PERSONA = 6664 AND s.ID_PREFERENCIA = 2";
+		String sql = "SELECT * FROM PREFERENCIAS_PERSONAS s INNER JOIN PREFERENCIAS p ON s.ID_PREFERENCIA=p.ID_PREFERENCIA WHERE ID_PERSONA ="+id+"AND s.ID_PREFERENCIA =" +idp;
+		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();

@@ -55,7 +55,7 @@ public class DaoPreferencia {
 	public void addPreferencia(Preferencia preferencia) throws SQLException, Exception {
 
 		String sql = "INSERT INTO PREFERENCIAS VALUES (";
-		sql += preferencia.getId_preferencia() + ",'";
+		sql += preferencia.id_persona() + ",'";
 		sql +=preferencia.getTipo()+"')";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -64,10 +64,10 @@ public class DaoPreferencia {
 
 	}
 
-	public Preferencia buscarPreferencias(Long id, Long idp) throws SQLException {
+	public Preferencia buscarPreferencias(Long id, String tipo) throws SQLException {
 		
 		Preferencia preferencia = null;
-		String sql = "SELECT * FROM PREFERENCIAS_PERSONAS s INNER JOIN PREFERENCIAS p ON s.ID_PREFERENCIA=p.ID_PREFERENCIA WHERE ID_PERSONA ="+id+"AND s.ID_PREFERENCIA =" +idp;
+		String sql = "SELECT * FROM PREFERENCIAS_PERSONAS WHERE ID_PERSONA = "+id+" AND TIPO = '"+tipo+"'";
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -75,15 +75,39 @@ public class DaoPreferencia {
 		
         if (rs.next()) {
 			
-//			Long idusuario = rs.getLong("ID_PERSONA");
-			Long idPreferencia =rs.getLong("ID_PREFERENCIA");
-//			String rol = rs.getString("ROL");
-			String tipo = rs.getString("TIPO");
+
+			Long idPreferencia =rs.getLong("ID_PERSONA");
+
+			String tipo2= rs.getString("TIPO");
 		
-			preferencia=new Preferencia(idPreferencia, tipo);
+			preferencia=new Preferencia(idPreferencia, tipo2);
         }
 		return preferencia;
 		
 	}
+	
+	public void updatePreferencia(Preferencia preferencia,String tipoAct) throws SQLException{
+		
+		
+		
+		String sql = "UPDATE PREFERENCIAS_PERSONAS SET ";
+		sql += "ID_PERSONA=" + preferencia.id_persona()+ ",";
+		sql += "TIPO='" + preferencia.getTipo() + "'";
+		sql += " WHERE  ID_PERSONA = " + preferencia.id_persona()+" AND TIPO ='"+tipoAct+"'";
+
+		System.out.println("SQL stmt:" + sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+	}
+	
+public void deletePreferencia(Long id, Long idp){
+		
+	}
+
 
 }
+
+

@@ -3,6 +3,7 @@ package tm;
 import java.io.File;
 
 
+
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -389,7 +390,7 @@ public class RotondAndesTm {
 		}
 	}
 	
-	public Preferencia BuscarPreferenciaPorId(Long id,Long idp) throws SQLException, Exception {
+	public Preferencia BuscarPreferenciaPorTipo(Long id,String tipo) throws SQLException, Exception {
 		Preferencia preferencia;
 		DaoPreferencia daoPreferencia = new DaoPreferencia();
 		try 
@@ -397,7 +398,7 @@ public class RotondAndesTm {
 			//////transaccion
 			this.conn = darConexion();
 			daoPreferencia.setConn(conn);
-			preferencia = daoPreferencia.buscarPreferencias(id,idp);
+			preferencia = daoPreferencia.buscarPreferencias(id,tipo);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -957,5 +958,40 @@ public class RotondAndesTm {
 			}
 	
 			return cuentas;
+	}
+
+	public void updatePreferencia(Preferencia preferencia,String tipoAct) throws SQLException {
+		DaoPreferencia daoPreferencia = new DaoPreferencia();
+		try 
+		{
+			//////Transacción
+			this.conn = darConexion();
+			daoPreferencia.setConn(conn);
+			daoPreferencia.updatePreferencia(preferencia,tipoAct);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPreferencia.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+
+	public void deletePreferencia(Preferencia preferencia) {
+		// TODO Auto-generated method stub
+		
 	}
 }

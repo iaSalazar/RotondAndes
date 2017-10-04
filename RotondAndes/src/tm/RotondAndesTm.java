@@ -1034,6 +1034,70 @@ public class RotondAndesTm {
 	
 			return ordenes;
 	}
+	public  void addorden(Long id) throws Exception 
+	{
+		OrdenVos ordenes = null;
+		DAOOrden dao = new DAOOrden() ;
+		try
+		{
+			this.conn = darConexion();
+			dao.setConn(conn);
+			dao.addOrden(id);
+		}
+		 catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					dao.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+	
+			
+	}
+	public  void addordenitem(Long id,Long Iid) throws Exception 
+	{
+	   
+		DAOOrden dao = new DAOOrden() ;
+		try
+		{
+			this.conn = darConexion();
+			dao.setConn(conn);
+			dao.addOrdenItem(id, Iid);
+		}
+		 catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					dao.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+	
+			
+	}
 
 	public void updatePreferencia(Preferencia preferencia,String tipoAct) throws SQLException {
 		DaoPreferencia daoPreferencia = new DaoPreferencia();

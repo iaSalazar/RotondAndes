@@ -92,15 +92,15 @@ public class DAOitems {
 	public void addItems(Items item) throws SQLException, Exception
 	{
 		
-		String sql = "INSERT INTO ITEMS (ID_RESTAURANTE,NOMBRE,TIPO,PRECIO,NOMBREINGLES,TIEMPO_PREPARACION,COSTO_PRODU) VALUES (";
+		String sql = "INSERT INTO ITEMS (ID_RESTAURANTE,NOMBRE,TIPO,PRECIO,NOMBREINGLES,TIEMPO_PREPARACION,COSTO_PRODU,CANTIDAD) VALUES (";
 		sql += item.getRid() + ",'";
 		sql += item.getNombre() + "','";
 		sql += item.getTipo() + "',";
 		sql += item.getPrecio() +",'";
 		sql += item.getNombreEN() + "',";
 		sql += item.getTiempopreparacion() + ",";
-		sql += item.getCantidad() + ",";
-		sql += item.getCostoproducion() + ")";
+		sql += item.getCostoproducion() + ",";
+		sql += item.getCantidad() + ")";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

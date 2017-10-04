@@ -1,5 +1,7 @@
 package vos;
 
+import java.sql.Date;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class OrdenVos {
@@ -9,12 +11,15 @@ public class OrdenVos {
 	private Long pid;
 	@JsonProperty(value="total") 
 	private Long total;
+	@JsonProperty(value="fecha") 
+	private Date fecha;
 	
-	public OrdenVos(@JsonProperty(value="id") Long id,@JsonProperty(value="pid") Long pid,@JsonProperty(value="total") Long total )
+	public OrdenVos(@JsonProperty(value="id") Long id,@JsonProperty(value="pid") Long pid,@JsonProperty(value="total") Long total, @JsonProperty(value="fecha") Date fecha )
 	{
 		this.id = id;
 		this.pid = pid;
 		this.total = total;
+		this.fecha = fecha;
 	}
 
 	/**

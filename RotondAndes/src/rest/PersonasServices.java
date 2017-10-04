@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.RotondAndesTm;
-
+import vos.OrdenVos;
 import vos.PersonaVos;
 import vos.Preferencia;
 import vos.ReservaVos;
@@ -170,5 +170,31 @@ public class PersonasServices {
 			return Response.status(200).entity(reserva).build();
 		}
 		
+		@POST
+		@Path( "{id: \\d+}/addorden" )
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response addOrden(@PathParam( "id" ) Long id) {
+			RotondAndesTm tm = new RotondAndesTm(getPath());
+			try {
+				tm.addorden(id);
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(id).build();
+		}
+		@POST
+		@Path( "{id:\\d+}/orden/{id2:\\d+}/item/{id3:\\d+}" )
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response addOrden(@PathParam( "id" ) Long id,@PathParam( "id2" ) Long id2,@PathParam( "id3" ) Long id3) {
+			RotondAndesTm tm = new RotondAndesTm(getPath());
+			try {
+
+				tm.addordenitem(id2, id3);
+				
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(id).build();
+		}
 		
 }

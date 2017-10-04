@@ -1,12 +1,14 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vos.OrdenVos;
+import vos.Zona;
 
 public class DAOOrden {
 	
@@ -50,11 +52,31 @@ public class DAOOrden {
 			Long id = rs.getLong("ID");
 			Long pid = rs.getLong("ID_PERSONA");
 			Long total = rs.getLong("TOTAL");
-			ordenes.add(new OrdenVos(id, pid, total));
+			Date ff = rs.getDate("FECHA");
+			ordenes.add(new OrdenVos(id, pid, total,ff));
 		}
 		return ordenes;
 		
 	}
 	
-	
+	public void addOrden(Long id) throws SQLException, Exception {
+
+		String sql = "INSERT INTO ORDEN (ID_PERSONA) VALUES (";	
+		sql += id +")";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	public void addOrdenItem(Long id,Long Iid) throws SQLException, Exception {
+
+		String sql = "INSERT INTO ITEMS_ORDEN (ORDEN_ID,ITEMS_ID) VALUES (";	
+		sql += id +" ," + Iid+ ")";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
 }

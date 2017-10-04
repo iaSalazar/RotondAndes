@@ -21,11 +21,13 @@ public class Items {
 	private Long tiempopreparacion;
 	@JsonProperty(value="costoproducion")
 	private Long costoproducion;
+	@JsonProperty(value="cantidad")
+	private int cantidad;
 	private List<Ingredientes> ingredientes;
 	
 	public Items(@JsonProperty(value="id") Long id,@JsonProperty(value="rid") Long rid,@JsonProperty(value="nombre")String nombre,@JsonProperty(value="tipo")String tipo
 			, @JsonProperty(value="precio") Long precio,@JsonProperty(value="nombreEN") String nombreEN,@JsonProperty(value="tiempopreparacion") Long tiempopreparacion,
-			 @JsonProperty(value="costoproducion") Long costoproducion )
+			 @JsonProperty(value="costoproducion") Long costoproducion,@JsonProperty(value="cantidad") int cantidad )
       {
 	   this.id = id;
 	   this.rid =rid;
@@ -35,7 +37,23 @@ public class Items {
 	   this.nombreEN = nombreEN;
 	   this.tiempopreparacion = tiempopreparacion;
 	   this.costoproducion = costoproducion;
+	   this.cantidad = cantidad;
+	   
       }
+
+	/**
+	 * @return the cantidad
+	 */
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	/**
+	 * @param cantidad the cantidad to set
+	 */
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
 
 	/**
 	 * @return the nombreEN

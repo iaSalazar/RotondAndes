@@ -58,7 +58,8 @@ public class DAOitems {
 			String nombreen =rs.getString("NOMBREINGLES");
 			Long tiempop = rs.getLong("TIEMPO_PREPARACION");
 			Long costop = rs.getLong("COSTO_PRODU");
-			items.add(new Items(id, Rid, name,tipo,precio,nombreen,tiempop,costop));
+			int cant = rs.getInt("CANTIDAD");
+			items.add(new Items(id, Rid, name,tipo,precio,nombreen,tiempop,costop,cant));
 		}
 		return items;
 		
@@ -82,7 +83,8 @@ public class DAOitems {
 			String nombreen =rs.getString("NOMBREINGLES");
 			Long tiempop = rs.getLong("TIEMPO_PREPARACION");
 			Long costop = rs.getLong("COSTO_PRODU");
-	        it= new Items(id, Rid, name,tipo,precio,nombreen,tiempop,costop);
+			int cant = rs.getInt("CANTIDAD");
+	        it= new Items(id, Rid, name,tipo,precio,nombreen,tiempop,costop,cant);
 		}
 		return it;
 		
@@ -97,6 +99,7 @@ public class DAOitems {
 		sql += item.getPrecio() +",'";
 		sql += item.getNombreEN() + "',";
 		sql += item.getTiempopreparacion() + ",";
+		sql += item.getCantidad() + ",";
 		sql += item.getCostoproducion() + ")";
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);

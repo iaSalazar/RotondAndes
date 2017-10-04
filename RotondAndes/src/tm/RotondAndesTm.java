@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import dao.DAOCuenta;
+
 import dao.DAOIngredientes;
 import dao.DAOMenu;
 import dao.DAOOrden;
@@ -22,7 +22,7 @@ import dao.DaoPersonas;
 import dao.DaoPreferencia;
 import dao.DaoRestaurante;
 import dao.DaoZona;
-import vos.CuentaVos;
+
 import vos.Ingredientes;
 import vos.Items;
 import vos.MenuVos;
@@ -887,7 +887,74 @@ public class RotondAndesTm {
 	
 			return menus;
 	}
+	public  void addmenu(MenuVos menu) throws Exception 
+	{
 	
+		DAOMenu dao = new DAOMenu() ;
+		try
+		{
+			this.conn = darConexion();
+			dao.setConn(conn);
+			dao.addMenu(menu);
+		}
+		 catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					dao.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+	
+		
+	}
+	public  void addMenuItem(Items item,Long idmenu) throws Exception 
+	{
+	   if(item==null)
+	   {
+		   throw new Exception("el item que quiere agregar no existe");
+	   }
+		DAOMenu dao = new DAOMenu() ;
+		try
+		{
+			this.conn = darConexion();
+			dao.setConn(conn);		
+			dao.addMenuItems(idmenu, item.getId());
+			dao.Updatevalos(idmenu, item.getPrecio());
+		}
+		 catch(SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					dao.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+	
+		
+	}
 	//////////////////////////////////////////
 	/////////////////ordenes//////////////////
 	/////////////////////////////////////////
@@ -923,41 +990,6 @@ public class RotondAndesTm {
 			}
 	
 			return ordenes;
-	}
-	//////////////////////////////////////////
-	/////////////////Cuentas//////////////////
-	/////////////////////////////////////////
-	public  List<CuentaVos> darCuentas() throws Exception 
-	{
-		List<CuentaVos> cuentas = null;
-		DAOCuenta dao = new DAOCuenta() ;
-		try
-		{
-			this.conn = darConexion();
-			dao.setConn(conn);
-			cuentas = dao.darCuentas();
-		}
-		 catch (SQLException e) {
-				System.err.println("SQLException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} catch (Exception e) {
-				System.err.println("GeneralException:" + e.getMessage());
-				e.printStackTrace();
-				throw e;
-			} finally {
-				try {
-					dao.cerrarRecursos();
-					if(this.conn!=null)
-						this.conn.close();
-				} catch (SQLException exception) {
-					System.err.println("SQLException closing resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-	
-			return cuentas;
 	}
 
 	public void updatePreferencia(Preferencia preferencia,String tipoAct) throws SQLException {

@@ -77,6 +77,20 @@ public class DaoZona {
 		prepStmt.executeQuery();
 
 	}
-	
+	public int darcapacidad(Long id) throws SQLException, Exception
+	{
+		int cap = 0;
+		String sql = "SELECT CAPACIDAD FROM ZONAS WHERE ID="+id;
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		
+		while (rs.next()) {
+			Long in = rs.getLong("CAPACIDAD");
+			cap += in;
+		}
+        return cap;
+	}
 	
 }

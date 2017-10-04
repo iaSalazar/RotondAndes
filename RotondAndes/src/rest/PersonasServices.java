@@ -1,7 +1,6 @@
 package rest;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 
@@ -9,7 +8,6 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -23,6 +21,7 @@ import tm.RotondAndesTm;
 
 import vos.PersonaVos;
 import vos.Preferencia;
+import vos.ReservaVos;
 
 
 
@@ -135,14 +134,14 @@ public class PersonasServices {
 		 * @return
 		 */
 		@GET
-		@Path( "{id: \\d+}/preferences/{tipo}" )
+		@Path( "{id: \\d+}/preferences/{id2: \\d+}" )
 		@Produces( { MediaType.APPLICATION_JSON } )
-		public Response getPreferencias( @PathParam( "id" ) Long id,@PathParam( "tipo" ) String id2  )
+		public Response getPreferencias( @PathParam( "id" ) Long id,@PathParam( "id2" ) Long id2  )
 		{
 			RotondAndesTm tm = new RotondAndesTm( getPath( ) );
 			try
 			{
-				Preferencia v = tm.BuscarPreferenciaPorTipo( id,id2 );
+				Preferencia v = tm.BuscarPreferenciaPorId( id,id2 );
 				return Response.status( 200 ).entity( v ).build( );			
 			}
 			catch( Exception e )
@@ -151,32 +150,25 @@ public class PersonasServices {
 			}
 				
 		}
-		
+		/**
+		 * metdo que expone servicio rest post para agregar una reserva a un usuario
+		 * @param preferencia
+		 * @return
+		 */
 		@POST
-		@Path("{id: \\d+}/preferences/{tipo}" )
+		@Path( "{id: \\d+}/reservas" )
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
-		public Response updatePreferencia(Preferencia preferencia,@PathParam( "tipo" ) String tipoAct ) {
-			RotondAndesTm tm = new RotondAndesTm( getPath( ) );
+		public Response addReserva(@PathParam( "id" ) Long id,ReservaVos reserva) {
+			RotondAndesTm tm = new RotondAndesTm(getPath());
+			reserva.setUid(id);
 			try {
-				tm.updatePreferencia(preferencia,tipoAct);
+				tm.addreserva(reserva);
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
-			return Response.status(200).entity(preferencia).build();
+			return Response.status(200).entity(reserva).build();
 		}
 		
-		@DELETE
-		@Path("{id: \\d+}/preferences/{tipo}")
-		@Consumes(MediaType.APPLICATION_JSON)
-		@Produces(MediaType.APPLICATION_JSON)
-		public Response deletePreferencia(Preferencia preferencia) {
-			RotondAndesTm tm = new RotondAndesTm(getPath());
-			try {
-				tm.deletePreferencia(preferencia);
-			} catch (Exception e) {
-				return Response.status(500).entity(doErrorMessage(e)).build();
-			}
-			return Response.status(200).entity(preferencia).build();
-		}
+		
 }

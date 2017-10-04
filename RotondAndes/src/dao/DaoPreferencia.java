@@ -116,7 +116,27 @@ public void deletePreferencia(Preferencia preferencia) throws SQLException{
 	prepStmt.executeQuery();
 	
 	}
-
+public Preferencia buscarPreferencias(Long id, Long idp) throws SQLException {
+	
+	Preferencia preferencia = null;
+	String sql = "SELECT * FROM PREFERENCIAS_PERSONAS s INNER JOIN PREFERENCIAS p ON s.ID_PREFERENCIA=p.ID_PREFERENCIA WHERE ID_PERSONA ="+id+"AND s.ID_PREFERENCIA =" +idp;
+	
+	PreparedStatement prepStmt = conn.prepareStatement(sql);
+	recursos.add(prepStmt);
+	ResultSet rs = prepStmt.executeQuery();
+	
+    if (rs.next()) {
+		
+//		Long idusuario = rs.getLong("ID_PERSONA");
+		Long idPreferencia =rs.getLong("ID_PREFERENCIA");
+//		String rol = rs.getString("ROL");
+		String tipo = rs.getString("TIPO");
+	
+		preferencia=new Preferencia(idPreferencia, tipo);
+    }
+	return preferencia;
+	
+}
 
 }
 

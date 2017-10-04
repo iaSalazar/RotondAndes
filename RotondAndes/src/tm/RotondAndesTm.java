@@ -851,7 +851,50 @@ public class RotondAndesTm {
 	
 			return reservas;
 	}
+	public  void addreserva(ReservaVos res) throws Exception 
+	{
+		List<ReservaVos> reservas = null;
+		DAOReservas dao = new DAOReservas() ;
+		DaoZona zdao = new DaoZona();
+		try
+		{
+			this.conn = darConexion();
+			dao.setConn(conn);
+			zdao.setConn(conn);
+			int cap = dao.darconflicto(res);
+			int zcap =zdao.darcapacidad(res.getZid());
+			if((zcap/2)<cap)
+			{
+				throw new Exception("se a superado la capacidad de la zona");
+			}
+			else
+			{
+			  dao.addReserva(res);
+			}
+			
+		}
+		 catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					dao.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
 	
+	
+	}
 	//////////////////////////////////////////
 	/////////////////menus///////////////////
 	/////////////////////////////////////////
@@ -1051,4 +1094,34 @@ public class RotondAndesTm {
 			}
 		}
 	}
+	public Preferencia BuscarPreferenciaPorId(Long id,Long idp) throws SQLException, Exception {
+		Preferencia preferencia;
+		DaoPreferencia daoPreferencia = new DaoPreferencia();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPreferencia.setConn(conn);
+			preferencia = daoPreferencia.buscarPreferencias(id,idp);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPreferencia.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return preferencia;	}
 }

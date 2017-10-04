@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vos.PersonaVos;
+import vos.Preferencia;
 
 
 
@@ -165,4 +166,7 @@ public class DaoPersonas {
 		}
 		return personas;
 	}
+	
+	
+	
 }

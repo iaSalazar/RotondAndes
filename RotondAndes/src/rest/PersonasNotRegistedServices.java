@@ -19,14 +19,13 @@ import javax.ws.rs.core.Response;
 import tm.RotondAndesTm;
 
 import vos.PersonaVos;
-import vos.Restaurante;
-import vos.Zona;
+import vos.Preferencia;
 
 
 
 
-@Path("admins")
-public class AdminServices {
+@Path("temp")
+public class PersonasNotRegistedServices {
 
 
 		/**
@@ -62,43 +61,36 @@ public class AdminServices {
 			RotondAndesTm tm = new RotondAndesTm(getPath());
 			List<PersonaVos> personas;
 			try {
-				personas = tm.darAdmins();
+				personas = tm.darPersonas();
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
 			return Response.status(200).entity(personas).build();
 		}
 		/**
-		 * Metodo para agregar empleados al sistema.
+		 * 
 		 * @param persona
 		 * @return
 		 */
 		
 		@POST
-		@Path( "{id: \\d+}/newClient" )
+		@Path( "{id: \\d+}" )
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
-		public Response addPersona(PersonaVos persona,@PathParam( "id" ) Long id ) {
+		public Response addPersona(PersonaVos persona) {
 			RotondAndesTm tm = new RotondAndesTm(getPath());
 			try {
-				PersonaVos v = tm.BuscarPersonaPorId( id );
-				if (v.getRol().equals("Administrador")) {
-					
-					tm.addCliente(persona);
-				}
-				
+				tm.addPersona(persona);
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
 			}
 			return Response.status(200).entity(persona).build();
 		}
-		
 		/**
-		 * retorna un admin.
+		 * 
 		 * @param id
 		 * @return
 		 */
-		
 		@GET
 		@Path( "{id: \\d+}" )
 		@Produces( { MediaType.APPLICATION_JSON } )
@@ -115,43 +107,6 @@ public class AdminServices {
 				return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 			}
 		}
-		
-		/**
-		 * 
-		 * @param restaurante
-		 * @return
-		 */
-		@POST
-		@Path( "{id: \\d+}/newRestaurante" )
-		@Consumes(MediaType.APPLICATION_JSON)
-		@Produces(MediaType.APPLICATION_JSON)
-		public Response addRestaurante(Restaurante restaurante) {
-			RotondAndesTm tm = new RotondAndesTm(getPath());
-			try {
-				tm.addRestaurante(restaurante);
-			} catch (Exception e) {
-				return Response.status(500).entity(doErrorMessage(e)).build();
-			}
-			return Response.status(200).entity(restaurante).build();
-		}
-		
-		/**
-		 * 
-		 * @param Zona
-		 * @return
-		 */
-		@POST
-		@Path( "{id: \\d+}/newZona" )
-		@Consumes(MediaType.APPLICATION_JSON)
-		@Produces(MediaType.APPLICATION_JSON)
-		public Response addZona(Zona zona) {
-			RotondAndesTm tm = new RotondAndesTm(getPath());
-			try {
-				tm.addZona(zona);
-			} catch (Exception e) {
-				return Response.status(500).entity(doErrorMessage(e)).build();
-			}
-			return Response.status(200).entity(zona).build();
-		}
+	
 		
 }

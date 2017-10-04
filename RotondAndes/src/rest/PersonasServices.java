@@ -1,5 +1,6 @@
 package rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,6 +20,7 @@ import javax.ws.rs.core.Response;
 import tm.RotondAndesTm;
 
 import vos.PersonaVos;
+import vos.Preferencia;
 
 
 
@@ -73,7 +75,6 @@ public class PersonasServices {
 		 */
 		
 		@POST
-		@Path( "{id: \\d+}" )
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
 		public Response addPersona(PersonaVos persona) {
@@ -99,6 +100,47 @@ public class PersonasServices {
 			try
 			{
 				PersonaVos v = tm.BuscarPersonaPorId( id );
+				return Response.status( 200 ).entity( v ).build( );			
+			}
+			catch( Exception e )
+			{
+				return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+			}
+		}
+		
+		/**
+		 * 
+		 * @param persona
+		 * @return
+		 */
+		@POST
+		@Path( "{id: \\d+}/preferences" )
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response addPreferencia(Preferencia preferencia) {
+			RotondAndesTm tm = new RotondAndesTm(getPath());
+			try {
+				tm.addPreferencia(preferencia);
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(preferencia).build();
+		}
+		
+		/**
+		 * 
+		 * @param id
+		 * @return
+		 */
+		@GET
+		@Path( "{id: \\d+}/preferences/{id2: \\d+}" )
+		@Produces( { MediaType.APPLICATION_JSON } )
+		public Response getPreferencias( @PathParam( "id" ) Long id,@PathParam( "id2" ) Long id2  )
+		{
+			RotondAndesTm tm = new RotondAndesTm( getPath( ) );
+			try
+			{
+				ArrayList<Preferencia> v = tm.BuscarPreferenciaPorId( id,id2 );
 				return Response.status( 200 ).entity( v ).build( );			
 			}
 			catch( Exception e )

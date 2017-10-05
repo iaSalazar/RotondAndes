@@ -48,6 +48,7 @@ http://localhost:8080/RotondAndes/rest/admins/{id}/newRestaurante
 ,
     "especialidad": ""
     }
+
 4- registrar un productor por emdio de un restaurante
 http://localhost:8080/RotondAndes/rest/restaurantes/{id}/additem
 rid es el id del restaurante el id del producto es asignado por el sistema
@@ -71,6 +72,7 @@ rid es el id del restaurante el id del producto es asignado por el sistema
 }
 
 5-resgitra un ingrediente a un producto por unr estaurante
+
  @POST http://localhost:8080/RotondAndes/rest/restaurantes/{id}/addingredientes
 {
 "nombre": "lechuga" ,
@@ -133,3 +135,18 @@ agregar un menu : http://localhost:8080/RotondAndes/rest/profiles/666/orden/{id}
 10- actulizar el inventario de la rotonda
 http://localhost:8080/RotondAndes/rest/restaurantes/{id}/orden/{id2}
 el restaurante liquida la orde significando que el plato ya salio para el cliente
+
+
+//////////////PARTE 2//////////////////////////
+
+1-para ver los items filtrados
+
+http://localhost:8080/RotondAndes/rest/items/{filter} precio/tipo
+
+
+3-
+ datos cliente
+ http://localhost:8080/RotondAndes/rest/clientesData/{id}
+http://localhost:8080/RotondAndes/rest/clientesData/{id}/preferences
+http://localhost:8080/RotondAndes/rest/clientesData/{id}preferences/{id}
+

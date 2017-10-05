@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -133,15 +134,20 @@ public class PersonasServices {
 		 * @param id
 		 * @return
 		 */
+		/**
+		 * 
+		 * @param id
+		 * @return
+		 */
 		@GET
-		@Path( "{id: \\d+}/preferences/{id2: \\d+}" )
+		@Path( "{id: \\d+}/preferences/{tipo}" )
 		@Produces( { MediaType.APPLICATION_JSON } )
-		public Response getPreferencias( @PathParam( "id" ) Long id,@PathParam( "id2" ) Long id2  )
+		public Response getPreferencias( @PathParam( "id" ) Long id,@PathParam( "tipo" ) String id2  )
 		{
 			RotondAndesTm tm = new RotondAndesTm( getPath( ) );
 			try
 			{
-				Preferencia v = tm.BuscarPreferenciaPorId( id,id2 );
+				Preferencia v = tm.BuscarPreferenciaPorTipo( id,id2 );
 				return Response.status( 200 ).entity( v ).build( );			
 			}
 			catch( Exception e )
@@ -149,6 +155,35 @@ public class PersonasServices {
 				return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
 			}
 				
+		}
+		
+
+		@POST
+		@Path("{id: \\d+}/preferences/{tipo}" )
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response updatePreferencia(Preferencia preferencia,@PathParam( "tipo" ) String tipoAct ) {
+			RotondAndesTm tm = new RotondAndesTm( getPath( ) );
+			try {
+				tm.updatePreferencia(preferencia,tipoAct);
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(preferencia).build();
+		}
+		
+		@DELETE
+		@Path("{id: \\d+}/preferences/{tipo}")
+		@Consumes(MediaType.APPLICATION_JSON)
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response deletePreferencia(Preferencia preferencia) {
+			RotondAndesTm tm = new RotondAndesTm(getPath());
+			try {
+				tm.deletePreferencia(preferencia);
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(preferencia).build();
 		}
 		/**
 		 * metdo que expone servicio rest post para agregar una reserva a un usuario

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import vos.PersonaVos;
 import vos.Preferencia;
@@ -54,7 +55,7 @@ public class DaoPreferencia {
 
 	public void addPreferencia(Preferencia preferencia) throws SQLException, Exception {
 
-		String sql = "INSERT INTO PREFERENCIAS VALUES (";
+		String sql = "INSERT INTO PREFERENCIAS_PERSONAS VALUES (";
 		sql += preferencia.id_persona() + ",'";
 		sql +=preferencia.getTipo()+"')";
 
@@ -116,26 +117,29 @@ public void deletePreferencia(Preferencia preferencia) throws SQLException{
 	prepStmt.executeQuery();
 	
 	}
-public Preferencia buscarPreferencias(Long id, Long idp) throws SQLException {
+
+
+public List<Preferencia> darPreferenciasClienteLista(Long id2) throws SQLException {
+	ArrayList<Preferencia> personas = new ArrayList<Preferencia>();
+
 	
-	Preferencia preferencia = null;
-	String sql = "SELECT * FROM PREFERENCIAS_PERSONAS s INNER JOIN PREFERENCIAS p ON s.ID_PREFERENCIA=p.ID_PREFERENCIA WHERE ID_PERSONA ="+id+"AND s.ID_PREFERENCIA =" +idp;
-	
+	String sql = "SELECT * FROM PREFERENCIAS_PERSONAS p inner join Persona s on s.USUARIO_ID=p.ID_PERSONA WHERE ROL ="
+			+ " 'CLIENTE' AND "
+			+ "s.USUARIO_ID ="+ id2+ " AND p.ID_PERSONA = "+id2;
+
 	PreparedStatement prepStmt = conn.prepareStatement(sql);
 	recursos.add(prepStmt);
 	ResultSet rs = prepStmt.executeQuery();
-	
-    if (rs.next()) {
+
+	while (rs.next()) {
 		
-//		Long idusuario = rs.getLong("ID_PERSONA");
-		Long idPreferencia =rs.getLong("ID_PREFERENCIA");
-//		String rol = rs.getString("ROL");
+		Long id = rs.getLong("USUARIO_ID");
 		String tipo = rs.getString("TIPO");
-	
-		preferencia=new Preferencia(idPreferencia, tipo);
-    }
-	return preferencia;
-	
+		
+		
+		personas.add(new Preferencia(id, tipo));
+	}
+	return personas;
 }
 
 }

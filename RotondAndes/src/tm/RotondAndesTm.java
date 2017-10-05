@@ -1158,7 +1158,7 @@ public class RotondAndesTm {
 			}
 		}
 	}
-	public Preferencia BuscarPreferenciaPorId(Long id,Long idp) throws SQLException, Exception {
+	public Preferencia BuscarPreferenciaPorId(Long id,String tipo) throws SQLException, Exception {
 		Preferencia preferencia;
 		DaoPreferencia daoPreferencia = new DaoPreferencia();
 		try 
@@ -1166,7 +1166,7 @@ public class RotondAndesTm {
 			//////transaccion
 			this.conn = darConexion();
 			daoPreferencia.setConn(conn);
-			preferencia = daoPreferencia.buscarPreferencias(id,idp);
+			preferencia = daoPreferencia.buscarPreferencias(id,tipo);
 
 		} catch (SQLException e) {
 			System.err.println("SQLException:" + e.getMessage());
@@ -1188,4 +1188,71 @@ public class RotondAndesTm {
 			}
 		}
 		return preferencia;	}
+
+	public List<PersonaVos> darClientes() throws SQLException {
+		List<PersonaVos> clientes;
+		DaoPersonas daoPersona = new DaoPersonas();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPersona.setConn(conn);
+			clientes = daoPersona.darClientes();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPersona.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return clientes;
+	}
+
+	public List<Preferencia> BuscarPreferenciasLista(Long id) throws SQLException {
+
+		List<Preferencia> preferencias;
+		DaoPreferencia daoPreferencia = new DaoPreferencia();
+		try 
+		{
+			//////transaccion
+			this.conn = darConexion();
+			daoPreferencia.setConn(conn);
+			preferencias = daoPreferencia.darPreferenciasClienteLista(id);
+
+		} catch (SQLException e) {
+			System.err.println("SQLException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} catch (Exception e) {
+			System.err.println("GeneralException:" + e.getMessage());
+			e.printStackTrace();
+			throw e;
+		} finally {
+			try {
+				daoPreferencia.cerrarRecursos();
+				if(this.conn!=null)
+					this.conn.close();
+			} catch (SQLException exception) {
+				System.err.println("SQLException closing resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return preferencias;
+	}
+
+	
 }

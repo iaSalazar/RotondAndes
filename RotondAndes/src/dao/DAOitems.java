@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import vos.Ingredientes;
 import vos.Items;
@@ -173,5 +174,38 @@ public class DAOitems {
  
 		return in;
 		
+	}
+
+	public List<Items> darItemsFiltrado(String filter) throws SQLException {
+
+		ArrayList<Items> items = new ArrayList<Items>();
+
+		String sql = "";
+		if (filter.equalsIgnoreCase("precio")) {
+			sql="SELECT * FROM ITEMS OREDER BY PRECIO";
+		}
+		else if (filter.equalsIgnoreCase("tipo")) {
+			sql="SELECT * FROM ITEMS OREDER BY TIPO";
+		}
+		
+		
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			Long id = rs.getLong("ID");
+			Long Rid = rs.getLong("ID_RESTAURANTE");
+			String name = rs.getString("NOMBRE");
+			String tipo = rs.getString("TIPO");
+			Long precio = rs.getLong("PRECIO");
+			String nombreen =rs.getString("NOMBREINGLES");
+			Long tiempop = rs.getLong("TIEMPO_PREPARACION");
+			Long costop = rs.getLong("COSTO_PRODU");
+			int cant = rs.getInt("CANTIDAD");
+			items.add(new Items(id, Rid, name,tipo,precio,nombreen,tiempop,costop,cant));
+		}
+		return items;
 	}
 }

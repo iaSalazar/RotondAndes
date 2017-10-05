@@ -17,7 +17,7 @@ import vos.PersonaVos;
 import vos.Preferencia;
 
 @Path("clientesData")
-public class ClientesServices {
+public class ClientesDataServices {
 
 	/**
 	 * Atributo que usa la anotacion @Context para tener el ServletContext de la conexion actual.

@@ -129,4 +129,19 @@ public class ItemsServices {
 	   
 	}
 	
+	@GET
+	@Path( "{filter}" )
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getItemsFiltro(@PathParam("filter") String filter) {
+		RotondAndesTm tm = new RotondAndesTm(getPath());
+		List<Items> items;
+		try {
+			items = tm.darItemsFiltrados(filter);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(items).build();
+	}
+	
+	
 }

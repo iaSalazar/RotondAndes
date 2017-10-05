@@ -1254,5 +1254,39 @@ public class RotondAndesTm {
 		return preferencias;
 	}
 
+	public List<Items> darItemsFiltrados(String filter) throws SQLException {
+
+		List<Items> items = null;
+		DAOitems it = new DAOitems() ;
+		try
+		{
+			this.conn = darConexion();
+			it.setConn(conn);
+			items = it.darItemsFiltrado(filter);
+		}
+		 catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					it.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+	
+			return items;
+
+	}
+
 	
 }

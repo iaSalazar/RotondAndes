@@ -1,9 +1,12 @@
 package rest;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,10 +16,16 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.jboss.resteasy.util.Base64.InputStream;
+
+import jdk.nashorn.api.scripting.JSObject;
 import tm.RotondAndesTm;
+import vos.Equivalencia;
+import vos.EquivalenciaItems;
 import vos.Ingredientes;
 import vos.Items;
 import vos.MenuVos;
+
 
 
 @Path("restaurantes")
@@ -106,6 +115,70 @@ public class RestaurantesServices {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(ingre).build();
+	}
+	
+	@POST
+	@Path( "{id:\\d+}/ingredientes/{id2:\\d+}" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addIngredienteEquivalente(  Equivalencia ingreEquiv ) {
+		RotondAndesTm tm = new RotondAndesTm(getPath());
+		
+		
+		try {
+			tm.addIngredienteEquivalente(ingreEquiv.getIdIngrdiente(), ingreEquiv.getIdEquiv());
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(ingreEquiv).build();
+	}
+	
+	@POST
+	@Path( "{id:\\d+}/items/{id2:\\d+}" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addItemEquivalente(  EquivalenciaItems itemEquiv,@PathParam( "id" ) Long idRestaurante ) {
+		RotondAndesTm tm = new RotondAndesTm(getPath());
+		
+		
+		try {
+			tm.addItemEquivalente(itemEquiv.getIdItem(), itemEquiv.getIdEquiv(),idRestaurante);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(itemEquiv).build();
+	}
+	
+	@POST
+	@Path( "{id:\\d+}/surtir/items/{id2:\\d+}/{cantidad:\\d+}" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response surtirRestauante( @PathParam( "id" ) Long idRestaurante,@PathParam( "id2" ) Long item,@PathParam( "cantidad" ) Long cantidad ) {
+		RotondAndesTm tm = new RotondAndesTm(getPath());
+		
+		
+		try {
+			tm.surtirRestaurante(idRestaurante,item,cantidad);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(item).build();
+	}
+	
+	@DELETE
+	@Path( "{id:\\d+}/cancelarPedido/{id2:\\d+}" )
+
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response cancelarPedido( @PathParam( "id" ) Long idRestaurante,@PathParam( "id2" ) Long ordenId ) {
+		RotondAndesTm tm = new RotondAndesTm(getPath());
+		
+		
+		try {
+			tm.cancelarOrden(idRestaurante,ordenId);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity("pedido cancelado").build();
 	}
 
 }

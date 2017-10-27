@@ -13,7 +13,23 @@ public class OrdenVos {
 	private Long total;
 	@JsonProperty(value="fecha") 
 	private Date fecha;
+	@JsonProperty(value="mesa") 
+	private Long mesa;
 	
+	/**
+	 * @return the mesa
+	 */
+	public Long getMesa() {
+		return mesa;
+	}
+
+	/**
+	 * @param mesa the mesa to set
+	 */
+	public void setMesa(Long mesa) {
+		this.mesa = mesa;
+	}
+
 	public OrdenVos(@JsonProperty(value="id") Long id,@JsonProperty(value="pid") Long pid,@JsonProperty(value="total") Long total, @JsonProperty(value="fecha") Date fecha )
 	{
 		this.id = id;

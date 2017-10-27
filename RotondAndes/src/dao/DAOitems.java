@@ -69,8 +69,10 @@ public class DAOitems {
 	{
 
 		Items it = null;
-		String sql = "SELECT * FROM ITEMS WHERE ID="+id;
+		
+		String sql = "SELECT * FROM ITEMS WHERE ID= "+id;
 
+		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
@@ -90,6 +92,8 @@ public class DAOitems {
 		return it;
 		
 	}
+	
+	
 	public void addItems(Items item) throws SQLException, Exception
 	{
 		
@@ -207,5 +211,40 @@ public class DAOitems {
 			items.add(new Items(id, Rid, name,tipo,precio,nombreen,tiempop,costop,cant));
 		}
 		return items;
+	}
+	
+	public void addEquivalenciaItems(Long id1, Long id2,Long idrestaurante) throws SQLException, Exception
+	{
+		Items it1 = darItem(id1);
+		Items it2 = darItem(id2);
+		
+		if (it1==null && it2==null||it1.getRid()!=it2.getRid() ) {
+			
+			throw new SQLException("no existen uno o ninguno de los items propuestos o no son del mismo restaurante");
+		}
+		
+		String sql = "INSERT INTO EQUIV_PRODUCTO (PRODUCTOID,EQUIVID) VALUES (";
+		sql += id1 + ",";
+		sql += id2+")" ;
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+	}
+
+	public void surtirRestaurante(Long idRestaurante,Long item, Long cantidad) throws SQLException,Exception {
+		
+		Items item2 = darItem(item);
+		cantidad += item2.getCantidad();
+		
+		String sql = "UPDATE ITEMS SET CANTIDAD =";
+		sql+= cantidad;
+		sql+= "WHERE ID_RESTAURANTE = "+idRestaurante+" AND ID = "+item;
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
 	}
 }

@@ -54,7 +54,7 @@ public class DAOIngredientes {
 		return ingre;
 		
 	}
-	public Ingredientes darIgrediente(String id) throws SQLException, Exception
+	public Ingredientes darIngrediente(String id) throws SQLException, Exception
 	{
 
 		Ingredientes it = null;
@@ -100,5 +100,23 @@ public class DAOIngredientes {
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
+	
+	public void addEquivalenciaIngrediente(String id1, String id2) throws SQLException, Exception
+	{
+		if (darIngrediente(id1)==null && darIngrediente(id2)==null) {
+			 
+			throw new SQLException("no existen uno o ninguno de los ingredientes propuestos");
+		}
+		
+		String sql = "INSERT INTO EQUIV_INGREDIENTE (IDINGREDIENTEA,IDEQUIV) VALUES ('";
+		sql += id1 + "','";
+		sql += id2+"')" ;
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+	}
+	
 	
 }

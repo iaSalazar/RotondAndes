@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vos.Items;
 import vos.OrdenVos;
 import vos.Zona;
 
@@ -78,5 +79,50 @@ public class DAOOrden {
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 
+	}
+
+
+	public void cancelarOrden(Long idRestaurante, Long ordenId) throws Exception {
+		
+		
+		surtirItemsIdOrden(idRestaurante,ordenId);
+		
+		String sql = "DELETE FROM ITEMS_ORDEN WHERE ID = " +ordenId;
+		String sql2 = "DELETE FROM ORDEN WHERE ID = " +ordenId;
+				
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		PreparedStatement prepStmt2 = conn.prepareStatement(sql2);
+		recursos.add(prepStmt2);
+		prepStmt.executeQuery();
+	}
+	
+
+
+	public ArrayList<Long> surtirItemsIdOrden(Long idRestaurante, Long ordenId) throws SQLException, Exception
+	{
+		ArrayList<Long> items = new ArrayList<Long>();
+		
+		DAOitems  item= new DAOitems();
+
+			
+		
+
+		String sql = "SELECT * FROM ITEMS_ORDEN WHERE ORDEN_ID = "+ordenId;
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			
+			Long id = rs.getLong("ORDEN_ID");
+			Long itemsId = rs.getLong("ITEMS_ID");
+			item.surtirRestaurante(idRestaurante, itemsId, new Long(1));
+			
+		}
+		return items;
+		
 	}
 }

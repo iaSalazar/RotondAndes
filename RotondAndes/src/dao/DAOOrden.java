@@ -60,6 +60,27 @@ public class DAOOrden {
 		
 	}
 	
+	public OrdenVos darOrden(Long ids) throws SQLException, Exception
+	{
+		OrdenVos ordenes = null;
+
+		String sql = "SELECT * FROM ORDEN WHERE ID = "+ ids ;
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			Long id = rs.getLong("ID");
+			Long pid = rs.getLong("ID_PERSONA");
+			Long total = rs.getLong("TOTAL");
+			Date ff = rs.getDate("FECHA");
+			ordenes = new OrdenVos(id, pid, total,ff);
+		}
+		return ordenes;
+		
+	}
+	
 	public void addOrden(Long id) throws SQLException, Exception {
 
 		String sql = "INSERT INTO ORDEN (ID_PERSONA) VALUES (";	
@@ -124,5 +145,43 @@ public class DAOOrden {
 		}
 		return items;
 		
+	}
+	
+	//equivalencia orden 
+	public void equivalencia(Long id,Long idi,Long idq) throws SQLException, Exception
+	{
+		OrdenVos ordenes = null;
+
+		String sql = "SELECT * from ITEMS_ORDEN JOIN EQUIV_PRODUCTO " + 
+				"ON ITEMS_ORDEN.ITEMS_ID = EQUIV_PRODUCTO.PRODUCTOID "+
+                "WHERE ITEMS_ORDEN.ORDEN_ID = " + id +
+                "AND ITEMS_ORDEN.ITEMS_ID = " + idi +
+                "AND EQUIV_PRODUCTO.EQUIVID = " + idq +
+               " FOR UPDATE OF ITEMS_ID";
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+
+			sql = "Update ITEMS_ORDEN SET " +
+                   " ORDEN_ID =" + id+",ITEMS_ID =" +idq +
+                   "WHERE ORDEN_ID =" +id + "AND ITEMS_ID =" +idi;
+			 prepStmt = conn.prepareStatement(sql);
+			 recursos.add(prepStmt);
+			 prepStmt.executeQuery();
+			 prepStmt = conn.prepareStatement("COMMIT");
+			 recursos.add(prepStmt);
+			 prepStmt.executeQuery();
+			 ordenes= new OrdenVos(id, idi, idq, null);
+		}
+		 if(ordenes ==null)
+		 {
+				prepStmt = conn.prepareStatement("ROLLBACK");
+				recursos.add(prepStmt);
+				prepStmt.executeQuery();
+				throw new Exception("no se pudo cambiar el equivalente");
+		 }
 	}
 }

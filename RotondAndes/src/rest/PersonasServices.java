@@ -220,11 +220,26 @@ public class PersonasServices {
 		@POST
 		@Path( "{id:\\d+}/orden/{id2:\\d+}/item/{id3:\\d+}" )
 		@Produces(MediaType.APPLICATION_JSON)
-		public Response addOrden(@PathParam( "id" ) Long id,@PathParam( "id2" ) Long id2,@PathParam( "id3" ) Long id3) {
+		public Response addOrdenitem(@PathParam( "id" ) Long id,@PathParam( "id2" ) Long id2,@PathParam( "id3" ) Long id3) {
 			RotondAndesTm tm = new RotondAndesTm(getPath());
 			try {
 
 				tm.addordenitem(id2, id3);
+				
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(id).build();
+		}
+		
+		@POST
+		@Path( "{id:\\d+}/orden/{id2:\\d+}/item/{id3:\\d+}/equiv/{id4:\\d+}" )
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response addequivalencia(@PathParam( "id" ) Long id,@PathParam( "id2" ) Long id2,@PathParam( "id3" ) Long id3,@PathParam( "id4" ) Long id4) {
+			RotondAndesTm tm = new RotondAndesTm(getPath());
+			try {
+
+				tm.rempalsarequvi(id2,id3,id4);
 				
 			} catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();

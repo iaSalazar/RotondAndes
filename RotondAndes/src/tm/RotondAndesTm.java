@@ -1413,5 +1413,34 @@ public class RotondAndesTm {
 			}	
 	}
 
-	
+	/////// EQUIVALENCIA EN ORDEN/////////
+	public void  rempalsarequvi(Long idorden,Long idproduc,Long idequiv)throws SQLException,Exception {
+		DAOOrden dao = new DAOOrden();
+		try
+		{
+			this.conn = darConexion();
+			dao.setConn(conn);
+			dao.equivalencia(idorden, idproduc, idequiv);
+			conn.commit();
+		}
+		 catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					dao.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}		
+	}
 }

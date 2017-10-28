@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import dao.DAOIngredientes;
 import dao.DAOMenu;
+import dao.DAOMesa;
 import dao.DAOOrden;
 import dao.DAOReservas;
 import dao.DAOitems;
@@ -1438,6 +1439,41 @@ public class RotondAndesTm {
 						this.conn.close();
 				} catch (SQLException exception) {
 					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}		
+	}
+	////// mesa//////
+	
+	public void mesaOrden(Long idp,Long idm)throws SQLException,Exception
+	{
+		DAOMesa dao = new DAOMesa();
+		try
+		{
+			this.conn = darConexion();
+			dao.setConn(conn);
+			dao.addOrdenMesa(idp, idm);
+			conn.commit();
+		}
+		 catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				conn.rollback();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				conn.rollback();
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					dao.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					conn.rollback();
 					exception.printStackTrace();
 					throw exception;
 				}

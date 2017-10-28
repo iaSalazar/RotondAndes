@@ -246,5 +246,19 @@ public class PersonasServices {
 			}
 			return Response.status(200).entity(id).build();
 		}
+		@POST
+		@Path( "{id:\\d+}/mesa/{id2:\\d+}" )
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response addequivalencia(@PathParam( "id" ) Long id,@PathParam( "id2" ) Long id2) {
+			RotondAndesTm tm = new RotondAndesTm(getPath());
+			try {
+
+				tm.mesaOrden(id, id2);
+				
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(id +" "+ id2).build();
+		}
 		
 }

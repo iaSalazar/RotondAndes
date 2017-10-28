@@ -152,7 +152,8 @@ public class DAOOrden {
 	{
 		OrdenVos ordenes = null;
 
-		String sql = "SELECT * from ITEMS_ORDEN JOIN EQUIV_PRODUCTO " + 
+		String sql = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE; "+
+				"SELECT * from ITEMS_ORDEN JOIN EQUIV_PRODUCTO " + 
 				"ON ITEMS_ORDEN.ITEMS_ID = EQUIV_PRODUCTO.PRODUCTOID "+
                 "WHERE ITEMS_ORDEN.ORDEN_ID = " + id +
                 "AND ITEMS_ORDEN.ITEMS_ID = " + idi +

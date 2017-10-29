@@ -2,55 +2,57 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public  class PersonaVos {
-	
+public class PersonaVos {
+
 	/**
 	 * id del usuario
 	 */
-	@JsonProperty(value="id")
+	@JsonProperty(value = "id")
 	private Long id;
-	
+
 	/**
 	 * rol del usuario
 	 */
-	@JsonProperty(value="rol")
+	@JsonProperty(value = "rol")
 	private String rol;
-	
+
 	/**
 	 * clave del usuario
 	 */
-	@JsonProperty(value="clave")
+	@JsonProperty(value = "clave")
 	private String clave;
-	
+
 	/**
 	 * telefono del usuario
 	 */
-	@JsonProperty(value="telefono")
+	@JsonProperty(value = "telefono")
 	private Long telefono;
-	
+
 	/**
 	 * nombre del usuario
 	 */
-	@JsonProperty(value="nombre")
+	@JsonProperty(value = "nombre")
 	private String nombre;
-	
+
 	/**
 	 * Crea una persona
+	 * 
 	 * @param id
 	 * @param rol
 	 * @param clave
 	 * @param telefono
 	 * @param nombre
 	 */
-	
-	public PersonaVos(@JsonProperty(value="id")Long id, @JsonProperty(value="rol")String rol,@JsonProperty(value="clave")String clave,
-			@JsonProperty(value="telefono")Long telefono,@JsonProperty(value="nombre")String nombre) {
+
+	public PersonaVos(@JsonProperty(value = "id") Long id, @JsonProperty(value = "rol") String rol,
+			@JsonProperty(value = "clave") String clave, @JsonProperty(value = "telefono") Long telefono,
+			@JsonProperty(value = "nombre") String nombre) {
 		super();
 		this.id = id;
-		this.rol=rol;
-		this.clave=clave;
-		this.telefono=telefono;
-		this.nombre=nombre;
+		this.rol = rol;
+		this.clave = clave;
+		this.telefono = telefono;
+		this.nombre = nombre;
 	}
 
 	public Long getId() {
@@ -92,10 +94,5 @@ public  class PersonaVos {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
-	
-	
-	
 
 }

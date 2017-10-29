@@ -18,18 +18,21 @@ public class ReservasServices {
 
 	@Context
 	private ServletContext context;
+
 	/**
-	 * Metodo que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy actual dentro del servidor.
+	 * Metodo que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy
+	 * actual dentro del servidor.
+	 * 
 	 * @return path de la carpeta WEB-INF/ConnectionData en el deploy actual.
 	 */
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
-	
-	private String doErrorMessage(Exception e){
-		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
+
+	private String doErrorMessage(Exception e) {
+		return "{ \"ERROR\": \"" + e.getMessage() + "\"}";
 	}
-	
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getReservas() {

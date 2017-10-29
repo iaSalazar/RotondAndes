@@ -5,41 +5,43 @@ import java.util.List;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Items {
-	@JsonProperty(value="id") 
+	@JsonProperty(value = "id")
 	private Long id;
-	@JsonProperty(value="rid")
+	@JsonProperty(value = "rid")
 	private Long rid;
-	@JsonProperty(value="nombre")
+	@JsonProperty(value = "nombre")
 	private String nombre;
-	@JsonProperty(value="tipo")
+	@JsonProperty(value = "tipo")
 	private String tipo;
-	@JsonProperty(value="precio")
+	@JsonProperty(value = "precio")
 	private Long precio;
-	@JsonProperty(value="nombreEN")
+	@JsonProperty(value = "nombreEN")
 	private String nombreEN;
-	@JsonProperty(value="tiempopreparacion")
+	@JsonProperty(value = "tiempopreparacion")
 	private Long tiempopreparacion;
-	@JsonProperty(value="costoproducion")
+	@JsonProperty(value = "costoproducion")
 	private Long costoproducion;
-	@JsonProperty(value="cantidad")
+	@JsonProperty(value = "cantidad")
 	private int cantidad;
 	private List<Ingredientes> ingredientes;
-	
-	public Items(@JsonProperty(value="id") Long id,@JsonProperty(value="rid") Long rid,@JsonProperty(value="nombre")String nombre,@JsonProperty(value="tipo")String tipo
-			, @JsonProperty(value="precio") Long precio,@JsonProperty(value="nombreEN") String nombreEN,@JsonProperty(value="tiempopreparacion") Long tiempopreparacion,
-			 @JsonProperty(value="costoproducion") Long costoproducion,@JsonProperty(value="cantidad") int cantidad )
-      {
-	   this.id = id;
-	   this.rid =rid;
-	   this.nombre = nombre;
-	   this.tipo = tipo;
-	   this.precio = precio;
-	   this.nombreEN = nombreEN;
-	   this.tiempopreparacion = tiempopreparacion;
-	   this.costoproducion = costoproducion;
-	   this.cantidad = cantidad;
-	   
-      }
+
+	public Items(@JsonProperty(value = "id") Long id, @JsonProperty(value = "rid") Long rid,
+			@JsonProperty(value = "nombre") String nombre, @JsonProperty(value = "tipo") String tipo,
+			@JsonProperty(value = "precio") Long precio, @JsonProperty(value = "nombreEN") String nombreEN,
+			@JsonProperty(value = "tiempopreparacion") Long tiempopreparacion,
+			@JsonProperty(value = "costoproducion") Long costoproducion,
+			@JsonProperty(value = "cantidad") int cantidad) {
+		this.id = id;
+		this.rid = rid;
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.precio = precio;
+		this.nombreEN = nombreEN;
+		this.tiempopreparacion = tiempopreparacion;
+		this.costoproducion = costoproducion;
+		this.cantidad = cantidad;
+
+	}
 
 	/**
 	 * @return the cantidad
@@ -49,7 +51,8 @@ public class Items {
 	}
 
 	/**
-	 * @param cantidad the cantidad to set
+	 * @param cantidad
+	 *            the cantidad to set
 	 */
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
@@ -63,7 +66,8 @@ public class Items {
 	}
 
 	/**
-	 * @param nombreEN the nombreEN to set
+	 * @param nombreEN
+	 *            the nombreEN to set
 	 */
 	public void setNombreEN(String nombreEN) {
 		this.nombreEN = nombreEN;
@@ -77,7 +81,8 @@ public class Items {
 	}
 
 	/**
-	 * @param tiempopreparacion the tiempopreparacion to set
+	 * @param tiempopreparacion
+	 *            the tiempopreparacion to set
 	 */
 	public void setTiempopreparacion(Long tiempopreparacion) {
 		this.tiempopreparacion = tiempopreparacion;
@@ -91,7 +96,8 @@ public class Items {
 	}
 
 	/**
-	 * @param costoproducion the costoproducion to set
+	 * @param costoproducion
+	 *            the costoproducion to set
 	 */
 	public void setCostoproducion(Long costoproducion) {
 		this.costoproducion = costoproducion;
@@ -105,7 +111,8 @@ public class Items {
 	}
 
 	/**
-	 * @param ingredientes the ingredientes to set
+	 * @param ingredientes
+	 *            the ingredientes to set
 	 */
 	public void setIngredientes(List<Ingredientes> ingredientes) {
 		this.ingredientes = ingredientes;
@@ -150,8 +157,5 @@ public class Items {
 	public void setPrecio(Long precio) {
 		this.precio = precio;
 	}
-		
-	
-	
-	
+
 }

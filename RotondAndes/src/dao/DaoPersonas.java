@@ -1,9 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-
-
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,10 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vos.PersonaVos;
-import vos.Preferencia;
-
-
-
 
 public class DaoPersonas {
 
@@ -29,8 +22,8 @@ public class DaoPersonas {
 	private Connection conn;
 
 	/**
-	 * Metodo constructor que crea DAOVideo
-	 * <b>post: </b> Crea la instancia del DAO e inicializa el Arraylist de recursos
+	 * Metodo constructor que crea DAOVideo <b>post: </b> Crea la instancia del DAO
+	 * e inicializa el Arraylist de recursos
 	 */
 	public DaoPersonas() {
 		recursos = new ArrayList<Object>();
@@ -41,8 +34,8 @@ public class DaoPersonas {
 	 * <b>post: </b> Todos los recurso del arreglo de recursos han sido cerrados
 	 */
 	public void cerrarRecursos() {
-		for(Object ob : recursos){
-			if(ob instanceof PreparedStatement)
+		for (Object ob : recursos) {
+			if (ob instanceof PreparedStatement)
 				try {
 					((PreparedStatement) ob).close();
 				} catch (Exception ex) {
@@ -52,14 +45,17 @@ public class DaoPersonas {
 	}
 
 	/**
-	 * Metodo que inicializa la connection del DAO a la base de datos con la conexión que entra como parametro.
-	 * @param con  - connection a la base de datos
+	 * Metodo que inicializa la connection del DAO a la base de datos con la
+	 * conexión que entra como parametro.
+	 * 
+	 * @param con
+	 *            - connection a la base de datos
 	 */
-	public void setConn(Connection con){
+	public void setConn(Connection con) {
 		this.conn = con;
 	}
 
-	public List<PersonaVos> darPersonas() throws SQLException,Exception {
+	public List<PersonaVos> darPersonas() throws SQLException, Exception {
 		ArrayList<PersonaVos> personas = new ArrayList<PersonaVos>();
 
 		String sql = "SELECT * FROM PERSONA";
@@ -69,28 +65,27 @@ public class DaoPersonas {
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			
+
 			Long id = rs.getLong("USUARIO_ID");
 			String rol = rs.getString("ROL");
 			String clave = rs.getString("CLAVE");
 			Long telefono = rs.getLong("Telefono");
 			String nombre = rs.getString("NOMBRE");
-			
-			personas.add(new PersonaVos(id, rol, clave,telefono,nombre));
+
+			personas.add(new PersonaVos(id, rol, clave, telefono, nombre));
 		}
 		return personas;
 	}
-	
-	
+
 	public void addPersona(PersonaVos persona) throws SQLException, Exception {
 
 		String sql = "INSERT INTO PERSONA VALUES (";
 		sql += persona.getId() + ",'";
-		
-		if(persona.getRol()=="Administrador" |persona.getRol()=="Cliente" ){
+
+		if (persona.getRol() == "Administrador" | persona.getRol() == "Cliente") {
 			throw new Exception("Forbidden");
 		}
-		
+
 		sql += persona.getRol() + "',";
 		sql += persona.getClave() + ",";
 		sql += persona.getTelefono() + ",'";
@@ -101,16 +96,16 @@ public class DaoPersonas {
 		prepStmt.executeQuery();
 
 	}
-	
+
 	public void addCliente(PersonaVos persona) throws SQLException, Exception {
 
 		String sql = "INSERT INTO PERSONA VALUES (";
 		sql += persona.getId() + ",'";
-		
-		if(persona.getRol()!=null){
+
+		if (persona.getRol() != null) {
 			throw new Exception("Forbidden");
 		}
-		if(persona.getRol()==null){
+		if (persona.getRol() == null) {
 			persona.setRol("CLIENTE");
 		}
 		sql += persona.getRol() + "',";
@@ -133,13 +128,13 @@ public class DaoPersonas {
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
-		if(rs.next()) {
+		if (rs.next()) {
 			Long id2 = rs.getLong("USUARIO_ID");
 			String rol = rs.getString("ROL");
 			String clave = rs.getString("CLAVE");
 			Long telefono = rs.getLong("Telefono");
 			String nombre = rs.getString("NOMBRE");
-			persona = new PersonaVos(id2, rol, clave,telefono,nombre);
+			persona = new PersonaVos(id2, rol, clave, telefono, nombre);
 		}
 
 		return persona;
@@ -155,14 +150,14 @@ public class DaoPersonas {
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			
+
 			Long id = rs.getLong("USUARIO_ID");
 			String rol = rs.getString("ROL");
 			String clave = rs.getString("CLAVE");
 			Long telefono = rs.getLong("Telefono");
 			String nombre = rs.getString("NOMBRE");
-			
-			personas.add(new PersonaVos(id, rol, clave,telefono,nombre));
+
+			personas.add(new PersonaVos(id, rol, clave, telefono, nombre));
 		}
 		return personas;
 	}
@@ -177,18 +172,16 @@ public class DaoPersonas {
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			
+
 			Long id = rs.getLong("USUARIO_ID");
 			String rol = rs.getString("ROL");
 			String clave = rs.getString("CLAVE");
 			Long telefono = rs.getLong("Telefono");
 			String nombre = rs.getString("NOMBRE");
-			
-			personas.add(new PersonaVos(id, rol, clave,telefono,nombre));
+
+			personas.add(new PersonaVos(id, rol, clave, telefono, nombre));
 		}
 		return personas;
 	}
-	
-	
-	
+
 }

@@ -1,36 +1,33 @@
 package vos;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
-
-
 public class ReservaVos {
-	
-	@JsonProperty(value="id") 
+
+	@JsonProperty(value = "id")
 	private Long id;
-	
-	@JsonProperty(value="zid")
+
+	@JsonProperty(value = "zid")
 	private Long zid;
-	
-	@JsonProperty(value="fecha")
+
+	@JsonProperty(value = "fecha")
 	private Date fecha;
-	
-	@JsonProperty(value="invitados")
+
+	@JsonProperty(value = "invitados")
 	private int invitados;
-	
-	@JsonProperty(value="mid")
+
+	@JsonProperty(value = "mid")
 	private Long mid;
-	
-	@JsonProperty(value="uid")
+
+	@JsonProperty(value = "uid")
 	private Long uid;
 
-	
-	public ReservaVos(	@JsonProperty(value="id") Long id,	@JsonProperty(value="zid") Long zid,	@JsonProperty(value="fecha") Date fecha2,
-			@JsonProperty(value="invitados") int invitados,@JsonProperty(value="mid") Long mid,@JsonProperty(value="uid") Long uid)
-	{
-		this.id=id;
+	public ReservaVos(@JsonProperty(value = "id") Long id, @JsonProperty(value = "zid") Long zid,
+			@JsonProperty(value = "fecha") Date fecha2, @JsonProperty(value = "invitados") int invitados,
+			@JsonProperty(value = "mid") Long mid, @JsonProperty(value = "uid") Long uid) {
+		this.id = id;
 		this.zid = zid;
 		this.fecha = fecha2;
 		this.invitados = invitados;
@@ -46,7 +43,8 @@ public class ReservaVos {
 	}
 
 	/**
-	 * @param invitados the invitados to set
+	 * @param invitados
+	 *            the invitados to set
 	 */
 	public void setInvitados(int invitados) {
 		this.invitados = invitados;
@@ -60,7 +58,8 @@ public class ReservaVos {
 	}
 
 	/**
-	 * @param mid the mid to set
+	 * @param mid
+	 *            the mid to set
 	 */
 	public void setMid(Long mid) {
 		this.mid = mid;
@@ -74,14 +73,16 @@ public class ReservaVos {
 	}
 
 	/**
-	 * @param uid the uid to set
+	 * @param uid
+	 *            the uid to set
 	 */
 	public void setUid(Long uid) {
 		this.uid = uid;
 	}
 
 	/**
-	 * @param fecha the fecha to set
+	 * @param fecha
+	 *            the fecha to set
 	 */
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
@@ -95,7 +96,8 @@ public class ReservaVos {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -109,7 +111,8 @@ public class ReservaVos {
 	}
 
 	/**
-	 * @param zid the zid to set
+	 * @param zid
+	 *            the zid to set
 	 */
 	public void setZid(Long zid) {
 		this.zid = zid;
@@ -121,7 +124,5 @@ public class ReservaVos {
 	public Date getFecha() {
 		return fecha;
 	}
-
-
 
 }

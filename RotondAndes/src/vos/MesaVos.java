@@ -3,11 +3,10 @@ package vos;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class MesaVos {
-	@JsonProperty(value="id") 
+	@JsonProperty(value = "id")
 	private Long id;
-	
-	public MesaVos(@JsonProperty(value="id") Long id)
-	{
+
+	public MesaVos(@JsonProperty(value = "id") Long id) {
 		this.id = id;
 	}
 
@@ -19,7 +18,8 @@ public class MesaVos {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;

@@ -3,34 +3,33 @@ package vos;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class Zona {
-	
-	@JsonProperty(value="id")
+
+	@JsonProperty(value = "id")
 	private Long id;
-	
+
 	@JsonProperty(value = "ambiente")
 	private String ambiente;
-	
+
 	@JsonProperty(value = "capacidad")
 	private Long capacidad;
-	
+
 	@JsonProperty(value = "descripcion_tecnica")
 	private String descripcion_tecnica;
-	
+
 	@JsonProperty(value = "especial")
 	private char especial;
 
-	
-	
-	public Zona(@JsonProperty(value="id")Long id, @JsonProperty(value="ambiente")String ambiente,@JsonProperty(value="capacidad")Long capacidad,@JsonProperty(value="descripcion_tecninca")String descripcion,@JsonProperty(value="especial")char especial){
+	public Zona(@JsonProperty(value = "id") Long id, @JsonProperty(value = "ambiente") String ambiente,
+			@JsonProperty(value = "capacidad") Long capacidad,
+			@JsonProperty(value = "descripcion_tecninca") String descripcion,
+			@JsonProperty(value = "especial") char especial) {
 		super();
 		this.id = id;
-		this.ambiente=ambiente;
-		this.capacidad=capacidad;
-		this.descripcion_tecnica=descripcion;
-		this.especial=especial;
-		
+		this.ambiente = ambiente;
+		this.capacidad = capacidad;
+		this.descripcion_tecnica = descripcion;
+		this.especial = especial;
 
-		
 	}
 
 	public Long getId() {
@@ -72,7 +71,5 @@ public class Zona {
 	public void setEspecial(char especial) {
 		this.especial = especial;
 	}
-
-	
 
 }

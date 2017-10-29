@@ -18,25 +18,27 @@ import javax.ws.rs.core.Response;
 import tm.RotondAndesTm;
 import vos.Ingredientes;
 import vos.Items;
-import vos.PersonaVos;
-
 
 @Path("items")
 public class ItemsServices {
 
 	@Context
 	private ServletContext context;
+
 	/**
-	 * Metodo que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy actual dentro del servidor.
+	 * Metodo que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy
+	 * actual dentro del servidor.
+	 * 
 	 * @return path de la carpeta WEB-INF/ConnectionData en el deploy actual.
 	 */
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
-	
-	private String doErrorMessage(Exception e){
-		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
+
+	private String doErrorMessage(Exception e) {
+		return "{ \"ERROR\": \"" + e.getMessage() + "\"}";
 	}
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getitems() {
@@ -49,12 +51,13 @@ public class ItemsServices {
 		}
 		return Response.status(200).entity(items).build();
 	}
+
 	@GET
-	@Path( "{id: \\d+}" )
+	@Path("{id: \\d+}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getitem( @PathParam( "id" ) Long id) {
+	public Response getitem(@PathParam("id") Long id) {
 		RotondAndesTm tm = new RotondAndesTm(getPath());
-	       Items items;
+		Items items;
 		try {
 			items = tm.darItem(id);
 		} catch (Exception e) {
@@ -62,11 +65,11 @@ public class ItemsServices {
 		}
 		return Response.status(200).entity(items).build();
 	}
-	
+
 	@GET
-	@Path( "{id: \\d+}/ingrediente" )
+	@Path("{id: \\d+}/ingrediente")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getitemingredientes(@PathParam( "id" ) Long id) {
+	public Response getitemingredientes(@PathParam("id") Long id) {
 		RotondAndesTm tm = new RotondAndesTm(getPath());
 		List<Ingredientes> items;
 		try {
@@ -76,12 +79,13 @@ public class ItemsServices {
 		}
 		return Response.status(200).entity(items).build();
 	}
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addItem( Items item) {
+	public Response addItem(Items item) {
 		RotondAndesTm tm = new RotondAndesTm(getPath());
-	
+
 		try {
 			tm.addItem(item);
 		} catch (Exception e) {
@@ -89,11 +93,12 @@ public class ItemsServices {
 		}
 		return Response.status(200).entity(item).build();
 	}
+
 	@POST
-	@Path( "{id: \\d+}/ingrediente" )
+	@Path("{id: \\d+}/ingrediente")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addItemIngrediente(  @PathParam( "id" ) Long id ,Ingredientes ingre) {
+	public Response addItemIngrediente(@PathParam("id") Long id, Ingredientes ingre) {
 		RotondAndesTm tm = new RotondAndesTm(getPath());
 		try {
 			tm.addItemigrendeinte(id, ingre);
@@ -102,12 +107,13 @@ public class ItemsServices {
 		}
 		return Response.status(200).entity(ingre).build();
 	}
+
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response Updateitem( Items item) {
+	public Response Updateitem(Items item) {
 		RotondAndesTm tm = new RotondAndesTm(getPath());
-	
+
 		try {
 			tm.UpdateItem(item);
 		} catch (Exception e) {
@@ -115,22 +121,22 @@ public class ItemsServices {
 		}
 		return Response.status(200).entity(item).build();
 	}
-	
+
 	@DELETE
-	@Path( "{id: \\d+}" )
-	public void DeleteItem( @PathParam( "id" ) Long id) {
+	@Path("{id: \\d+}")
+	public void DeleteItem(@PathParam("id") Long id) {
 		RotondAndesTm tm = new RotondAndesTm(getPath());
-	
+
 		try {
 			tm.DeleteItem(id);
 		} catch (Exception e) {
-			
+
 		}
-	   
+
 	}
-	
+
 	@GET
-	@Path( "{filter}" )
+	@Path("{filter}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getItemsFiltro(@PathParam("filter") String filter) {
 		RotondAndesTm tm = new RotondAndesTm(getPath());
@@ -142,6 +148,5 @@ public class ItemsServices {
 		}
 		return Response.status(200).entity(items).build();
 	}
-	
-	
+
 }

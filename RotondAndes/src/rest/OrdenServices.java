@@ -3,9 +3,7 @@ package rest;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -13,26 +11,28 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.RotondAndesTm;
-import vos.Items;
 import vos.OrdenVos;
-
 
 @Path("orden")
 public class OrdenServices {
 
 	@Context
 	private ServletContext context;
+
 	/**
-	 * Metodo que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy actual dentro del servidor.
+	 * Metodo que retorna el path de la carpeta WEB-INF/ConnectionData en el deploy
+	 * actual dentro del servidor.
+	 * 
 	 * @return path de la carpeta WEB-INF/ConnectionData en el deploy actual.
 	 */
 	private String getPath() {
 		return context.getRealPath("WEB-INF/ConnectionData");
 	}
-	
-	private String doErrorMessage(Exception e){
-		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
+
+	private String doErrorMessage(Exception e) {
+		return "{ \"ERROR\": \"" + e.getMessage() + "\"}";
 	}
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getitems() {
@@ -45,6 +45,5 @@ public class OrdenServices {
 		}
 		return Response.status(200).entity(orden).build();
 	}
-	
 
 }

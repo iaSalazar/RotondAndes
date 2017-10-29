@@ -5,17 +5,17 @@ import java.sql.Date;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class OrdenVos {
-	@JsonProperty(value="id") 
+	@JsonProperty(value = "id")
 	private Long id;
-	@JsonProperty(value="pid") 
+	@JsonProperty(value = "pid")
 	private Long pid;
-	@JsonProperty(value="total") 
+	@JsonProperty(value = "total")
 	private Long total;
-	@JsonProperty(value="fecha") 
+	@JsonProperty(value = "fecha")
 	private Date fecha;
-	@JsonProperty(value="mesa") 
+	@JsonProperty(value = "mesa")
 	private Long mesa;
-	
+
 	/**
 	 * @return the mesa
 	 */
@@ -24,14 +24,15 @@ public class OrdenVos {
 	}
 
 	/**
-	 * @param mesa the mesa to set
+	 * @param mesa
+	 *            the mesa to set
 	 */
 	public void setMesa(Long mesa) {
 		this.mesa = mesa;
 	}
 
-	public OrdenVos(@JsonProperty(value="id") Long id,@JsonProperty(value="pid") Long pid,@JsonProperty(value="total") Long total, @JsonProperty(value="fecha") Date fecha )
-	{
+	public OrdenVos(@JsonProperty(value = "id") Long id, @JsonProperty(value = "pid") Long pid,
+			@JsonProperty(value = "total") Long total, @JsonProperty(value = "fecha") Date fecha) {
 		this.id = id;
 		this.pid = pid;
 		this.total = total;
@@ -46,7 +47,8 @@ public class OrdenVos {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -60,7 +62,8 @@ public class OrdenVos {
 	}
 
 	/**
-	 * @param pid the pid to set
+	 * @param pid
+	 *            the pid to set
 	 */
 	public void setPid(Long pid) {
 		this.pid = pid;
@@ -74,7 +77,8 @@ public class OrdenVos {
 	}
 
 	/**
-	 * @param total the total to set
+	 * @param total
+	 *            the total to set
 	 */
 	public void setTotal(Long total) {
 		this.total = total;

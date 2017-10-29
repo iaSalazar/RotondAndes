@@ -273,4 +273,28 @@ public class DAOitems {
 		return items;
 	}
 	
+	//desconta un item
+	public void subtraeritem(Long idi) throws SQLException,Exception
+	{
+		String sql = "alter session set isolation_level=serializable ";
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+	    prepStmt.executeQuery();
+		sql = "SELECT CANTIDAD FROM ITEMS WHERE ID = " + idi +" FOR UPDATE OF CANTIDAD";
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		rs.next();
+		
+		Long rr = rs.getLong("CANTIDAD");
+		rr = rr-1;
+		sql="UPDATE ITEMS SET";
+		sql += "CANTIDAD =" + rr;
+		sql += "WHERE ID =" + idi;
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+	}
+	
 }

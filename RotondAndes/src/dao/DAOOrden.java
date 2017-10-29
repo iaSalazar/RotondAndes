@@ -185,4 +185,56 @@ public class DAOOrden {
 				throw new Exception("no se pudo cambiar el equivalente");
 		 }
 	}
+	
+	///comprobar toda el orden
+	
+	public void complobarentrega(Long idp) throws SQLException, Exception
+	{
+		DAOitems it = new DAOitems();
+		ArrayList items = new ArrayList();
+		String sql = "alter session set isolation_level=serializable ";
+        int cont = 0;
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+	    prepStmt.executeQuery();
+	    
+	    sql = "SELECT * FROM ITEMS_ORDEN WHERE ORDEN_ID =" + idp;
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+	
+		while(rs.next())
+		{
+			String b = rs.getString("ENTREGADO");
+			Long id = rs.getLong("ITEMS_ID");
+			items.add(id);
+			if(b.equalsIgnoreCase("N"))
+			{
+				throw new Exception("la ordene esta incompleta");
+			}
+			else
+			{
+				cont++;
+			}
+
+		}
+		if(cont==0)
+		{
+			throw new Exception("la orden noe xiste o no tine items");
+		}
+		else
+		{
+			for(int i =0;i<items.size();i++)
+			{
+				it.subtraeritem((Long)items.get(i));
+			}
+			throw new Exception("la ordene esta completa");
+		}
+	
+		
+	}
+	public void desitems(Long id)
+	{
+		
+	}
 }

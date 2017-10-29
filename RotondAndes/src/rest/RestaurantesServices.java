@@ -45,7 +45,7 @@ public class RestaurantesServices {
 		return "{ \"ERROR\": \""+ e.getMessage() + "\"}" ;
 	}
 	@GET
-	@PathParam("menus")
+	@Path("menus")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getMenus() {
 		RotondAndesTm tm = new RotondAndesTm(getPath());
@@ -57,10 +57,21 @@ public class RestaurantesServices {
 		}
 		return Response.status(200).entity(menu).build();
 	}
-	
+	/////verifica una orden compreta/////
+	@GET
+	@Path("{id:\\d+}/orden/{id2:\\d+}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getOrdencompreta( @PathParam( "id" ) Long id,@PathParam( "id2" ) Long id2) {
+		RotondAndesTm tm = new RotondAndesTm(getPath());
+		try {
+			 tm.comproOrden(id2);
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(id2).build();
+	}
 	@POST
 	@Path("{id: \\d+}/newMenu")
-
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addMenu(@PathParam("id")Long id,MenuVos menu) {

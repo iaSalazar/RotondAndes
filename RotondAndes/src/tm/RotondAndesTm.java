@@ -1479,4 +1479,36 @@ public class RotondAndesTm {
 				}
 			}		
 	}
+
+	public List<Items> darPersonaConsumo(Long idCliente) throws SQLException,Exception {
+		List<Items> items = null;
+		DAOitems it = new DAOitems() ;
+		try
+		{
+			this.conn = darConexion();
+			it.setConn(conn);
+			items = it.darItemsConsumo(idCliente);
+		}
+		 catch (SQLException e) {
+				System.err.println("SQLException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} catch (Exception e) {
+				System.err.println("GeneralException:" + e.getMessage());
+				e.printStackTrace();
+				throw e;
+			} finally {
+				try {
+					it.cerrarRecursos();
+					if(this.conn!=null)
+						this.conn.close();
+				} catch (SQLException exception) {
+					System.err.println("SQLException closing resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+	
+			return items;
+	}
 }

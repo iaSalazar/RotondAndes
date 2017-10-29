@@ -19,10 +19,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.RotondAndesTm;
+import vos.Items;
 import vos.OrdenVos;
 import vos.PersonaVos;
 import vos.Preferencia;
 import vos.ReservaVos;
+import org.json.*;
 
 
 
@@ -261,4 +263,29 @@ public class PersonasServices {
 			return Response.status(200).entity(id +" "+ id2).build();
 		}
 		
+		@GET
+		@Path( "{id: \\d+}/consumo" )
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response getPersonaConsumo(@PathParam( "id" ) Long idCliente) {
+			RotondAndesTm tm = new RotondAndesTm(getPath());
+			List<Items> items;
+			org.json.JSONObject obj = new org.json.JSONObject();
+			System.out.println("ENTRO 1");
+			try {
+				System.out.println("ENTRO 12");
+				items = tm.darPersonaConsumo(idCliente);
+				for (int i = 0; i < items.size(); i++) {
+					
+					
+					  obj.put(String.valueOf(i+1), "-"+items.get(0).getNombre());
+					 
+					  obj.toString(); 
+				}
+				
+				  
+			} catch (Exception e) {
+				return Response.status(500).entity(doErrorMessage(e)).build();
+			}
+			return Response.status(200).entity(obj).build();
+		}
 }

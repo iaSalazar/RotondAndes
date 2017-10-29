@@ -247,4 +247,30 @@ public class DAOitems {
 		prepStmt.executeQuery();
 		
 	}
+
+	public List<Items> darItemsConsumo(Long idCliente) throws SQLException {
+		ArrayList<Items> items = new ArrayList<Items>();
+
+		String sql = "SELECT * FROM ITEMS_ORDEN INNER JOIN ORDEN ON ITEMS_ORDEN.ORDEN_ID = ORDEN.ID WHERE ID_PERSONA = " ;
+
+		sql+= idCliente;
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			Long id = rs.getLong("ID");
+			Long Rid = rs.getLong("ID_RESTAURANTE");
+			String name = rs.getString("NOMBRE");
+			String tipo = rs.getString("TIPO");
+			Long precio = rs.getLong("PRECIO");
+			String nombreen =rs.getString("NOMBREINGLES");
+			Long tiempop = rs.getLong("TIEMPO_PREPARACION");
+			Long costop = rs.getLong("COSTO_PRODU");
+			int cant = rs.getInt("CANTIDAD");
+			items.add(new Items(id, Rid, name,tipo,precio,nombreen,tiempop,costop,cant));
+		}
+		return items;
+	}
+	
 }

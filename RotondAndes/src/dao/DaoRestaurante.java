@@ -82,8 +82,8 @@ public class DaoRestaurante {
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 
-		sql = "SELECT ITEMS_ORDEN.ITEMS_ID AS ITEMS, SUM(PRECIO) AS TOTAL, ITEMS.ID_RESTAURANTE AS RESTAURANTE"
-				+ "FROM ITEMS_ORDEN JOIN ITEMS " + "ON ITEMS_ID = ITEMS.ID "
+		sql = "SELECT ITEMS_ORDEN.ITEMS_ID AS ITEMS, SUM(PRECIO) AS TOTAL, ITEMS.ID_RESTAURANTE AS RESTAURANTE "+
+				 " from ITEMS_ORDEN JOIN ITEMS " + "ON ITEMS_ID = ITEMS.ID "
 				+ "GROUP BY ITEMS_ID,ITEMS.ID_RESTAURANTE ";
 		prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -108,7 +108,7 @@ public class DaoRestaurante {
 		prepStmt.executeQuery();
 
 		sql = "SELECT ITEMS_ORDEN.ITEMS_ID AS ITEMS, SUM(PRECIO) AS TOTAL, ITEMS.ID_RESTAURANTE AS RESTAURANTE"
-				+ "FROM ITEMS_ORDEN JOIN ITEMS " + "ON ITEMS_ID = ITEMS.ID " + "WHERE ITEMS.ID_RESTAURANTE = " + id
+				+ " from  ITEMS_ORDEN JOIN ITEMS " + "ON ITEMS_ID = ITEMS.ID " + "WHERE ITEMS.ID_RESTAURANTE = " + id
 				+ "GROUP BY ITEMS_ID,ITEMS.ID_RESTAURANTE ";
 		prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

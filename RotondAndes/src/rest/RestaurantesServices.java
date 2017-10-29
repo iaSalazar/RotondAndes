@@ -192,7 +192,7 @@ public class RestaurantesServices {
 	}
 
 	@GET
-	@Path("a/{id:\\d+}")
+	@Path("{id:\\d+}/pedidos")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getconsulta(@PathParam("id") Long id) {
 		RotondAndesTm tm = new RotondAndesTm(getPath());

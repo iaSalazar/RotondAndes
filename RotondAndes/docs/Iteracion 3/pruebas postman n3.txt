@@ -16,11 +16,22 @@ http://localhost:8080/RotondAndes/rest/restaurantes/1/items/21
         "idEquiv": 25
     }
 
-13-
-http://localhost:8080/RotondAndes/rest/restaurantes/1/surtir/items/22/5
+13- http://localhost:8080/RotondAndes/rest/restaurantes/1/surtir/items/22/5
 
-16/ http://localhost:8080/RotondAndes/rest/restaurantes/1/cancelarPedido/2
+14- http://localhost:8080/RotondAndes/profiles/id/mesa/id2 este es el 14
+
+15-http://localhost:8080/RotondAndes/profiles/id/orden/id2/item/id3/equiv/id4
+
+
+
+16-http://localhost:8080/RotondAndes/restaurantes/id1/orden/id2
+
+17-
+ http://localhost:8080/RotondAndes/rest/restaurantes/1/cancelarPedido/2
 
 
 
 7: http://localhost:8080/RotondAndes/rest/profiles/{id: \\d+}/consumo
+
+8: http://localhost:8080/RotondAndes/admins/pedidos
+http://localhost:8080/RotondAndes/restaurantes/id/pedidos

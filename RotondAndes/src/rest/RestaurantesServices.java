@@ -182,12 +182,27 @@ public class RestaurantesServices {
 	@GET
 	@Path("{id:\\d+}/pedidos")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getconsulta(@PathParam("id") Long id) {
+	public Response getconsulta1(@PathParam("id") Long id) {
 		RotondAndesTm tm = new RotondAndesTm(getPath());
 		List<ConsuVos> con;
 		try {
 			con = tm.Conespe(id);
 
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(con).build();
+	}
+	
+	@DELETE
+	@Path("{id:\\d+}/pedidos")
+
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getConsulta(@PathParam("id") Long idRestaurante) {
+		RotondAndesTm tm = new RotondAndesTm(getPath());
+		List<ConsuVos> con;
+		try {
+			con = tm.Conespe(idRestaurante);
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}

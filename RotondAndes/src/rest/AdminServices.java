@@ -53,19 +53,7 @@ public class AdminServices {
 	 * @return Json con todos los videos de la base de datos o json con el error que
 	 *         se produjo
 	 */
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getPersonas() {
-		RotondAndesTm tm = new RotondAndesTm(getPath());
-		List<PersonaVos> personas;
-		try {
-			personas = tm.darAdmins();
-			
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(personas).build();
-	}
+	
 
 	@GET
 	@Path("pedidos")
@@ -163,6 +151,22 @@ public class AdminServices {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(zona).build();
+	}
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getPersonas() {
+		RotondAndesTm tm = new RotondAndesTm(getPath());
+		
+	
+		List<PersonaVos> personas;
+		try {
+			personas = tm.darAdmins();
+			
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(personas).build();
 	}
 
 }

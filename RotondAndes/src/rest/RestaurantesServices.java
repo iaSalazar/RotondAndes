@@ -56,19 +56,7 @@ public class RestaurantesServices {
 		return Response.status(200).entity(menu).build();
 	}
 
-	///// verifica una orden compreta/////
-	@GET
-	@Path("{id:\\d+}/orden/{id2:\\d+}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getOrdencompreta(@PathParam("id") Long id, @PathParam("id2") Long id2) {
-		RotondAndesTm tm = new RotondAndesTm(getPath());
-		try {
-			tm.comproOrden(id2);
-		} catch (Exception e) {
-			return Response.status(500).entity(doErrorMessage(e)).build();
-		}
-		return Response.status(200).entity(id2).build();
-	}
+
 
 	@POST
 	@Path("{id: \\d+}/newMenu")
@@ -199,10 +187,25 @@ public class RestaurantesServices {
 		List<ConsuVos> con;
 		try {
 			con = tm.Conespe(id);
+
 		} catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 		return Response.status(200).entity(con).build();
+	}
+	
+	@GET
+	@Path( "{id:\\d+}/orden/{id2:\\d+} ")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getOrdencompreta(@PathParam("id") Long id, @PathParam("id2") Long id2) {
+		RotondAndesTm tm = new RotondAndesTm(getPath());
+		try {
+			tm.comproOrden(id2);
+
+		} catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+		return Response.status(200).entity(id2).build();
 	}
 
 }
